@@ -474,7 +474,7 @@ public class WeChatApiImpl implements WeChatApi {
             List<Account> memberList = WeChatUtils.fromJson(WeChatUtils.toJson(jsonObject.getAsJsonArray("MemberList")), new TypeToken<List<Account>>() {});
 
             for (Account account : memberList) {
-                if (null == account.getUserName()) {
+                if (null != account.getUserName()) {
                     accountMap.put(account.getUserName(), account);
                 }
             }
@@ -617,7 +617,7 @@ public class WeChatApiImpl implements WeChatApi {
 
     @Override
     public boolean createChatRoom(String topic, List<String> members) {
-        String                    url        = String.format("%s/webwxcreatechatroom?r=%s&lang=zh_CN", bot.session().getUrl());
+        String                    url        = String.format("%s/webwxcreatechatroom?r=%s&lang=zh_CN", bot.session().getUrl(), System.currentTimeMillis() / 1000);
         List<Map<String, String>> memberList = new ArrayList<>(members.size());
         for (String member : members) {
             Map<String, String> m = new HashMap<>(2);
